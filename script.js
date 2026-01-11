@@ -5,8 +5,12 @@ const CONFIG = {
   officialDownload: "https://www.minecraft.net/en-us/download",
   legacyDownload: "https://legacy-launcher.org/",
 };
-// Live status uses mcsrvstat.us JSON API: https://api.mcsrvstat.us/2/<serverAddress>
-// ==========================
+
+// Donation conversion rules:
+const DONATE_RULES = {
+  rubToAr: 1,          // 1 ₽ = 1 ар
+  diamondsPerAr: 10,   // 10 💎 = 1 ар
+};
 
 const $ = (id) => document.getElementById(id);
 
@@ -68,6 +72,11 @@ const I18N = {
 
     donateTitle: "Донат",
     donateText: "Это прототип страницы. Позже можно подключить PayPal/Boosty/Stripe или магазин.",
+    rate1: "1 ₽ = 1 ар (алмазная руда)",
+    rate2: "10 💎 (алмаз) = 1 ар",
+    youGet: "Ты получаешь:",
+    diamonds: "Алмазы:",
+
     tier1Name: "Supporter",
     tier1a: "❤ Спасибо в Discord",
     tier1b: "⭐ Роль донатера",
@@ -80,6 +89,7 @@ const I18N = {
     tier3a: "👑 Legend роль",
     tier3b: "🎉 Особая благодарность",
     tier3c: "✨ Косметический набор (прототип)",
+
     chooseBtn: "Выбрать",
     donateProtoTitle: "Прототип оплаты",
     donateProtoText: "Нажми “Выбрать” — откроется окно. Потом заменим на реальные платежи.",
@@ -98,6 +108,8 @@ const I18N = {
     modalTitle: "Донат (Прототип)",
     modalTier: "Пакет",
     modalPrice: "Цена",
+    modalAr: "АР",
+    modalDiamonds: "💎",
     modalText: "Это заглушка. Потом заменим на реальные кнопки оплаты.",
     modalDiscordBtn: "Открыть Discord для доната",
     closeBtn: "Закрыть",
@@ -167,6 +179,11 @@ const I18N = {
 
     donateTitle: "Донат",
     donateText: "Це прототип сторінки. Пізніше можна підключити PayPal/Boosty/Stripe або магазин.",
+    rate1: "1 ₽ = 1 ар (алмазна руда)",
+    rate2: "10 💎 (алмаз) = 1 ар",
+    youGet: "Ти отримуєш:",
+    diamonds: "Алмази:",
+
     tier1Name: "Supporter",
     tier1a: "❤ Подяка в Discord",
     tier1b: "⭐ Роль донатера",
@@ -179,6 +196,7 @@ const I18N = {
     tier3a: "👑 Legend роль",
     tier3b: "🎉 Особлива подяка",
     tier3c: "✨ Косметичний набір (прототип)",
+
     chooseBtn: "Обрати",
     donateProtoTitle: "Прототип оплати",
     donateProtoText: "Натисни “Обрати” — відкриється вікно. Потім замінимо на реальні платежі.",
@@ -197,6 +215,8 @@ const I18N = {
     modalTitle: "Донат (Прототип)",
     modalTier: "Пакет",
     modalPrice: "Ціна",
+    modalAr: "АР",
+    modalDiamonds: "💎",
     modalText: "Це заглушка. Потім замінимо на реальні кнопки оплати.",
     modalDiscordBtn: "Відкрити Discord для донату",
     closeBtn: "Закрити",
@@ -211,19 +231,6 @@ const I18N = {
 };
 
 let currentLang = "ru";
-
-function safeSetText(id, text) {
-  const el = $(id);
-  if (el) el.textContent = text;
-}
-function safeSetHTML(selector, html) {
-  const el = document.querySelector(selector);
-  if (el) el.innerHTML = html;
-}
-function safeSetHref(id, url) {
-  const el = $(id);
-  if (el) el.href = url;
-}
 
 function setActiveLangButtons() {
   const ru = $("langRU");
@@ -255,14 +262,48 @@ function pickDefaultLang() {
 }
 
 function setLinksAndIP() {
-  safeSetText("serverAddress", CONFIG.serverAddress);
-  safeSetText("serverAddress2", CONFIG.serverAddress);
+  const a1 = $("serverAddress");
+  const a2 = $("serverAddress2");
+  if (a1) a1.textContent = CONFIG.serverAddress;
+  if (a2) a2.textContent = CONFIG.serverAddress;
 
-  safeSetHref("discordLink", CONFIG.discordInvite);
-  safeSetHref("modalDiscordBtn", CONFIG.discordInvite);
+  const discordLink = $("discordLink");
+  if (discordLink) discordLink.href = CONFIG.discordInvite;
 
-  safeSetHref("officialLink", CONFIG.officialDownload);
-  safeSetHref("legacyLink", CONFIG.legacyDownload);
+  const modalDiscordBtn = $("modalDiscordBtn");
+  if (modalDiscordBtn) modalDiscordBtn.href = CONFIG.discordInvite;
+
+  const officialLink = $("officialLink");
+  if (officialLink) officialLink.href = CONFIG.officialDownload;
+
+  const legacyLink = $("legacyLink");
+  if (legacyLink) legacyLink.href = CONFIG.legacyDownload;
+}
+
+function rubToAr(rub) {
+  return Math.floor(Number(rub) * DONATE_RULES.rubToAr);
+}
+function arToDiamonds(ar) {
+  return Math.floor(Number(ar) * DONATE_RULES.diamondsPerAr);
+}
+
+function refreshDonateCards() {
+  document.querySelectorAll("button[data-rub][data-tier]").forEach((btn) => {
+    const rub = Number(btn.dataset.rub || 0);
+    const ar = rubToAr(rub);
+    const diamonds = arToDiamonds(ar);
+
+    const card = btn.closest(".tier");
+    if (!card) return;
+
+    const priceLabel = card.querySelector("[data-price-label]");
+    const arsEl = card.querySelector("[data-ars]");
+    const coinsEl = card.querySelector("[data-coins]");
+
+    if (priceLabel) priceLabel.textContent = String(rub);
+    if (arsEl) arsEl.textContent = String(ar);
+    if (coinsEl) coinsEl.textContent = String(diamonds);
+  });
 }
 
 async function copyIP() {
@@ -317,12 +358,23 @@ async function fetchStatus() {
 }
 
 /* Donate modal (safe) */
-function openModal(tier, price) {
+function openModal(tier, rub) {
   const modal = $("donateModal");
   if (!modal) return;
 
-  safeSetText("modalTierValue", tier || "—");
-  safeSetText("modalPriceValue", price || "—");
+  const rubNum = Number(rub || 0);
+  const ar = rubToAr(rubNum);
+  const diamonds = arToDiamonds(ar);
+
+  const tierEl = $("modalTierValue");
+  const priceEl = $("modalPriceValue");
+  const arEl = $("modalArValue");
+  const coinsEl = $("modalCoinsValue");
+
+  if (tierEl) tierEl.textContent = tier || "—";
+  if (priceEl) priceEl.textContent = `₽${rubNum}`;
+  if (arEl) arEl.textContent = `${ar} ар`;
+  if (coinsEl) coinsEl.textContent = `${diamonds} 💎`;
 
   modal.classList.add("isOpen");
   modal.setAttribute("aria-hidden", "false");
@@ -331,19 +383,17 @@ function openModal(tier, price) {
 function closeModal() {
   const modal = $("donateModal");
   if (!modal) return;
-
   modal.classList.remove("isOpen");
   modal.setAttribute("aria-hidden", "true");
 }
 
 function bindDonateButtons() {
   const modal = $("donateModal");
-  // If modal not present, skip donate JS to avoid crashing
   if (!modal) return;
 
-  document.querySelectorAll('button[data-tier][data-price]').forEach((btn) => {
+  document.querySelectorAll('button[data-tier][data-rub]').forEach((btn) => {
     btn.addEventListener("click", () => {
-      openModal(btn.dataset.tier, btn.dataset.price);
+      openModal(btn.dataset.tier, btn.dataset.rub);
     });
   });
 
@@ -363,6 +413,7 @@ function init() {
   currentLang = pickDefaultLang();
   applyI18n();
   setLinksAndIP();
+  refreshDonateCards();
 
   const ruBtn = $("langRU");
   const uaBtn = $("langUA");
@@ -372,6 +423,7 @@ function init() {
       currentLang = "ru";
       localStorage.setItem("wanillix_lang", "ru");
       applyI18n();
+      refreshDonateCards();
       fetchStatus();
     });
   }
@@ -381,6 +433,7 @@ function init() {
       currentLang = "ua";
       localStorage.setItem("wanillix_lang", "ua");
       applyI18n();
+      refreshDonateCards();
       fetchStatus();
     });
   }
