@@ -1,11 +1,10 @@
-
 <!doctype html>
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Wanillix — Minecraft Server (1.21.8)</title>
-  <meta name="description" content="Wanillix Minecraft Server — Java 1.21.8. How to join, download, Discord, donate, and live status." />
+  <meta name="description" content="Wanillix Minecraft Server — Java 1.21.8. Join, download, Discord, donate by nickname, live status." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -178,12 +177,12 @@
       </div>
     </section>
 
-    <!-- DONATE -->
+    <!-- DONATE BY NICKNAME -->
     <section id="donate" class="section">
       <div class="container">
-        <h2 data-i18n="donateTitle">Donations</h2>
-        <p class="small" data-i18n="donateText">
-          This is a prototype page. You can later connect PayPal/Boosty/Stripe or a store.
+        <h2 data-i18n="donateTitle">Donate</h2>
+        <p class="small" data-i18n="donateTextNick">
+          Enter your Minecraft nickname, choose a pack, copy the request, and send it in Discord.
         </p>
 
         <div class="donateRates">
@@ -191,10 +190,22 @@
           <div class="rateChip" data-i18n="rate2">10 💎 (алмаз) = 1 ар</div>
         </div>
 
+        <div class="donateForm">
+          <label class="field">
+            <div class="field__label" data-i18n="nickLabel">Minecraft nickname</div>
+            <input id="nickInput" class="field__input" type="text" placeholder="YourNick" maxlength="16" autocomplete="off">
+            <div class="field__hint" id="nickHint" aria-live="polite"></div>
+          </label>
+
+          <a class="btn btn--ghost btn--pixel" id="discordDonateBtn" href="https://discord.gg/dtgyTaDq" target="_blank" rel="noreferrer" data-i18n="openDiscord">
+            Open Discord
+          </a>
+        </div>
+
         <div class="grid3">
           <div class="tile tier tier--bronze">
             <div class="tier__top">
-              <div class="tier__name" data-i18n="tier1Name">Supporter</div>
+              <div class="tier__name">Supporter</div>
               <div class="tier__price"><span class="mono">₽</span><span class="mono" data-price-label>99</span></div>
             </div>
 
@@ -209,12 +220,6 @@
               </div>
             </div>
 
-            <ul class="tier__list">
-              <li data-i18n="tier1a">❤ Thanks in Discord</li>
-              <li data-i18n="tier1b">⭐ Donator role</li>
-              <li data-i18n="tier1c">📢 Your name on website</li>
-            </ul>
-
             <button class="btn btn--pixel"
                     type="button"
                     data-tier="Supporter"
@@ -224,7 +229,7 @@
 
           <div class="tile tier tier--silver">
             <div class="tier__top">
-              <div class="tier__name" data-i18n="tier2Name">VIP</div>
+              <div class="tier__name">VIP</div>
               <div class="tier__price"><span class="mono">₽</span><span class="mono" data-price-label>249</span></div>
             </div>
 
@@ -239,12 +244,6 @@
               </div>
             </div>
 
-            <ul class="tier__list">
-              <li data-i18n="tier2a">⭐ VIP role</li>
-              <li data-i18n="tier2b">🎁 Small cosmetic perk</li>
-              <li data-i18n="tier2c">🛠 Priority support</li>
-            </ul>
-
             <button class="btn btn--primary btn--pixel"
                     type="button"
                     data-tier="VIP"
@@ -254,7 +253,7 @@
 
           <div class="tile tier tier--gold">
             <div class="tier__top">
-              <div class="tier__name" data-i18n="tier3Name">Legend</div>
+              <div class="tier__name">Legend</div>
               <div class="tier__price"><span class="mono">₽</span><span class="mono" data-price-label>499</span></div>
             </div>
 
@@ -269,12 +268,6 @@
               </div>
             </div>
 
-            <ul class="tier__list">
-              <li data-i18n="tier3a">👑 Legend role</li>
-              <li data-i18n="tier3b">🎉 Special thank you</li>
-              <li data-i18n="tier3c">✨ Cosmetic bundle (prototype)</li>
-            </ul>
-
             <button class="btn btn--pixel"
                     type="button"
                     data-tier="Legend"
@@ -283,14 +276,11 @@
           </div>
         </div>
 
-        <div class="donateBox">
-          <div class="donateBox__left">
-            <div class="donateBox__title" data-i18n="donateProtoTitle">Prototype checkout</div>
-            <div class="donateBox__text" data-i18n="donateProtoText">
-              When you click “Choose”, a popup opens. Later you can replace it with real payments.
-            </div>
+        <div class="noteBox" style="margin-top:14px;">
+          <div class="noteBox__title" data-i18n="howItWorksTitle">How it works</div>
+          <div class="noteBox__text" data-i18n="howItWorksText">
+            Choose a pack → copy the message → send it in Discord. Staff will deliver items to that nickname.
           </div>
-          <a class="btn btn--ghost btn--pixel" href="#discord" data-i18n="askDiscordBtn">Ask in Discord</a>
         </div>
       </div>
     </section>
@@ -325,18 +315,23 @@
     </div>
   </footer>
 
-  <!-- Donation Modal -->
+  <!-- DONATION REQUEST MODAL -->
   <div class="modal" id="donateModal" aria-hidden="true">
     <div class="modal__backdrop" data-close="1"></div>
     <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal__top">
-        <div class="modal__title" id="modalTitle" data-i18n="modalTitle">Donation (Prototype)</div>
+        <div class="modal__title" id="modalTitle" data-i18n="modalTitleNick">Donation request</div>
         <button class="xbtn" type="button" data-close="1" aria-label="Close">✕</button>
       </div>
 
       <div class="modal__body">
         <div class="modalRow">
-          <div class="modalLabel" data-i18n="modalTier">Tier</div>
+          <div class="modalLabel" data-i18n="modalNick">Nickname</div>
+          <div class="modalValue mono" id="modalNickValue">—</div>
+        </div>
+
+        <div class="modalRow">
+          <div class="modalLabel" data-i18n="modalTier">Pack</div>
           <div class="modalValue mono" id="modalTierValue">—</div>
         </div>
 
@@ -357,19 +352,17 @@
 
         <div class="divider"></div>
 
-        <p class="muted" data-i18n="modalText">
-          This is a placeholder checkout. Replace this with real payment buttons later.
-        </p>
-
-        <div class="modalActions">
-          <a class="btn btn--primary btn--pixel" id="modalDiscordBtn" href="https://discord.gg/dtgyTaDq" target="_blank" rel="noreferrer" data-i18n="modalDiscordBtn">
-            Open Discord to donate
-          </a>
-          <button class="btn btn--ghost btn--pixel" type="button" data-close="1" data-i18n="closeBtn">Close</button>
-        </div>
-
-        <div class="fineprint" data-i18n="fineprint">
-          Tip: Add PayPal/Stripe/Boosty later and replace this modal button with real links.
+        <div class="modalBlock">
+          <div class="modalLabel" data-i18n="copyMsgTitle">Message to send in Discord</div>
+          <pre class="msgBox mono" id="modalMsg">—</pre>
+          <div class="modalActions">
+            <button class="btn btn--primary btn--pixel" id="copyMsgBtn" type="button" data-i18n="copyMsgBtn">Copy message</button>
+            <a class="btn btn--ghost btn--pixel" id="openDiscordBtn" href="https://discord.gg/dtgyTaDq" target="_blank" rel="noreferrer" data-i18n="openDiscord">
+              Open Discord
+            </a>
+            <button class="btn btn--ghost btn--pixel" type="button" data-close="1" data-i18n="closeBtn">Close</button>
+          </div>
+          <div class="fineprint" id="copyMsgHint" aria-live="polite"></div>
         </div>
       </div>
     </div>
@@ -378,4 +371,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
