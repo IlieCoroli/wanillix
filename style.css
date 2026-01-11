@@ -1,11 +1,7 @@
 :root{
   --bg:#070a0f;
-  --panel:#0d1220;
-  --panel2:#0b1322;
   --text:#e8f0ff;
   --muted:#b0c0d8;
-  --accent:#6ee7ff;
-  --accent2:#a78bfa;
   --ok:#34d399;
   --bad:#fb7185;
   --border:rgba(255,255,255,.12);
@@ -36,6 +32,7 @@ body{
   mask-image: radial-gradient(800px 600px at 30% 10%, black 50%, transparent 70%);
 }
 
+/* Top bar */
 .topbar{
   position:sticky; top:0; z-index:10;
   background: rgba(7,10,15,.78);
@@ -82,6 +79,7 @@ body{
   border-color: rgba(255,255,255,.18);
 }
 
+/* Hero */
 .hero{padding:54px 0 22px}
 .hero__inner{display:grid; grid-template-columns: 1.2fr .8fr; gap:22px; align-items:start}
 
@@ -121,22 +119,13 @@ h1{
   box-shadow: var(--shadow);
   position:relative;
 }
-.card--block{
-  border-radius:14px;
-  box-shadow: var(--shadow), var(--pixel);
-}
-.card--block:before{
-  content:"";
-  position:absolute; inset:0;
-  border-radius:14px;
-  pointer-events:none;
-  background: linear-gradient(180deg, rgba(255,255,255,.06), transparent 45%);
-}
+.card--block{border-radius:14px; box-shadow: var(--shadow), var(--pixel)}
 .card__label{font-size:12px; color:var(--muted); margin-bottom:6px; font-weight:800}
 .card__value{font-weight:900; letter-spacing:.2px; word-break:break-word}
 
 .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
 
+/* Buttons */
 .btn{
   display:inline-flex; align-items:center; justify-content:center;
   border:1px solid rgba(255,255,255,.14);
@@ -151,14 +140,10 @@ h1{
   transition: transform .12s ease, background .12s ease, border-color .12s ease;
 }
 .btn:hover{background: rgba(255,255,255,.10); transform: translateY(-1px); border-color:rgba(255,255,255,.18)}
-.btn--pixel{
-  border-radius:10px;
-  box-shadow: var(--pixel);
-}
-.btn--primary{
-  background: linear-gradient(135deg, rgba(110,231,255,.22), rgba(167,139,250,.18));
-}
+.btn--pixel{border-radius:10px; box-shadow: var(--pixel)}
+.btn--primary{background: linear-gradient(135deg, rgba(110,231,255,.22), rgba(167,139,250,.18))}
 .btn--ghost{background: transparent}
+.btn[disabled]{opacity:.5; cursor:not-allowed; transform:none}
 
 .ctaRow{display:flex; gap:12px; flex-wrap:wrap; margin-top:14px}
 
@@ -173,6 +158,7 @@ h1{
   box-shadow: 0 0 0 4px rgba(255,255,255,.06);
 }
 
+/* Panels / tiles */
 .panel{
   background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
   border:1px solid rgba(255,255,255,.12);
@@ -228,28 +214,7 @@ h2{margin:0 0 10px; font-size:22px}
 .rules{color:var(--muted); padding-left:18px; margin:10px 0 0}
 .rules li{margin:8px 0}
 
-.monoBox{
-  border:1px dashed rgba(255,255,255,.18);
-  border-radius:14px;
-  padding:12px;
-  margin-top:10px;
-  background: rgba(0,0,0,.18);
-}
-.monoLabel{font-size:12px; color:var(--muted); font-weight:900}
-.monoValue{font-weight:900; margin-top:4px}
-
-.noteBox{
-  margin-top:14px;
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.04);
-  border-radius:16px;
-  padding:12px 14px;
-  box-shadow: var(--pixel);
-}
-.noteBox__title{font-weight:900; margin-bottom:6px}
-.noteBox__text{color:var(--muted); font-size:13px}
-
-/* Donate extras */
+/* Donate */
 .donateRates{display:flex; gap:10px; flex-wrap:wrap; margin:10px 0 14px}
 .rateChip{
   border:1px solid rgba(255,255,255,.12);
@@ -261,22 +226,33 @@ h2{margin:0 0 10px; font-size:22px}
   box-shadow: var(--pixel);
 }
 
+.donateForm{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  align-items:flex-end;
+  margin: 8px 0 16px;
+}
+
+.field{display:flex; flex-direction:column; gap:6px; min-width: 280px}
+.field__label{font-weight:900; font-size:12px; color:var(--muted)}
+.field__input{
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  color: var(--text);
+  border-radius: 14px;
+  padding: 12px 12px;
+  outline: none;
+  font-weight: 900;
+}
+.field__input:focus{border-color: rgba(110,231,255,.35)}
+.field__hint{min-height:16px; font-size:12px; color: var(--muted)}
+.field__hint.ok{color: rgba(52,211,153,.95)}
+.field__hint.bad{color: rgba(251,113,133,.95)}
+
 .tier__top{display:flex; justify-content:space-between; align-items:baseline; gap:10px}
 .tier__name{font-weight:1000; font-size:16px}
 .tier__price{font-family:"Press Start 2P", monospace; font-size:12px; opacity:.95}
-.tier__list{margin:10px 0 0; padding-left:18px; color:var(--muted)}
-.tier__list li{margin:8px 0}
-.tier{position:relative; overflow:hidden}
-.tier:before{
-  content:"";
-  position:absolute; inset:-40px;
-  background: radial-gradient(300px 220px at 20% 20%, rgba(255,255,255,.08), transparent 60%);
-  pointer-events:none;
-}
-.tier--bronze{border-color: rgba(251,113,133,.25)}
-.tier--silver{border-color: rgba(110,231,255,.25)}
-.tier--gold{border-color: rgba(250,204,21,.25)}
-
 .tier__calc{
   margin-top:10px;
   padding:10px 12px;
@@ -285,21 +261,10 @@ h2{margin:0 0 10px; font-size:22px}
   background: rgba(0,0,0,.16);
 }
 .calcRow{display:flex; justify-content:space-between; gap:10px; margin:6px 0}
-
-.donateBox{
-  margin-top:14px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  padding:14px;
-  border-radius:18px;
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.04);
-  box-shadow: var(--pixel);
-}
-.donateBox__title{font-weight:1000}
-.donateBox__text{color:var(--muted); font-size:13px}
+.tier{position:relative; overflow:hidden}
+.tier--bronze{border-color: rgba(251,113,133,.25)}
+.tier--silver{border-color: rgba(110,231,255,.25)}
+.tier--gold{border-color: rgba(250,204,21,.25)}
 
 /* Footer */
 .footer{padding:18px 0; border-top:1px solid rgba(255,255,255,.10)}
@@ -315,7 +280,7 @@ h2{margin:0 0 10px; font-size:22px}
 }
 .modal__panel{
   position:relative;
-  width:min(520px, 92vw);
+  width:min(720px, 92vw);
   margin: 10vh auto;
   background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
   border:1px solid rgba(255,255,255,.14);
@@ -343,8 +308,19 @@ h2{margin:0 0 10px; font-size:22px}
 .modalLabel{color:var(--muted); font-weight:900}
 .modalValue{font-weight:1000}
 .divider{height:1px; background: rgba(255,255,255,.10); margin:12px 0}
+
+.modalBlock{margin-top:10px}
+.msgBox{
+  margin:10px 0 0;
+  white-space:pre-wrap;
+  border-radius:14px;
+  padding:12px;
+  border:1px dashed rgba(255,255,255,.18);
+  background: rgba(0,0,0,.20);
+  min-height: 92px;
+}
 .modalActions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
-.fineprint{margin-top:12px; font-size:12px; color:var(--muted)}
+.fineprint{margin-top:10px; font-size:12px; color:var(--muted); min-height:16px}
 
 @media (max-width: 860px){
   .hero__inner{grid-template-columns: 1fr}
@@ -353,4 +329,3 @@ h2{margin:0 0 10px; font-size:22px}
   .grid2{grid-template-columns: 1fr}
   h1{font-size:30px}
 }
-
