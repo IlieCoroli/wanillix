@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Wanillix — Minecraft Server (1.21.8)</title>
+  <meta name="description" content="Wanillix Minecraft Server — Java 1.21.8. Join, rules, Discord, and live status." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <div class="brand">
+        <div class="brand__logo">W</div>
+        <div class="brand__text">
+          <div class="brand__name">Wanillix</div>
+          <div class="brand__tag">Minecraft Server • Java 1.21.8</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#join">Join</a>
+        <a href="#features">Features</a>
+        <a href="#rules">Rules</a>
+        <a href="#discord">Discord</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero__inner">
+        <div class="hero__left">
+          <h1>Wanillix</h1>
+          <p class="lead">A cozy survival world with big adventures. Build, trade, and play with a friendly community.</p>
+
+          <div class="cards">
+            <div class="card">
+              <div class="card__label">Server Address</div>
+              <div class="card__value" id="serverAddress">play.yourserver.com</div>
+              <button class="btn" id="copyBtn">Copy IP</button>
+              <div class="hint" id="copyHint" aria-live="polite"></div>
+            </div>
+
+            <div class="card">
+              <div class="card__label">Live Status</div>
+              <div class="status">
+                <span class="dot" id="statusDot"></span>
+                <span id="statusText">Checking…</span>
+              </div>
+              <div class="hint" id="playersText">—</div>
+            </div>
+          </div>
+
+          <div class="ctaRow">
+            <a class="btn btn--primary" href="#join">How to Join</a>
+            <a class="btn btn--ghost" href="#discord">Open Discord</a>
+          </div>
+
+          <div class="micro">
+            Version: <b>Java 1.21.8</b> • Website: <b>Wanillix</b>
+          </div>
+        </div>
+
+        <div class="hero__right">
+          <div class="pixelCard">
+            <div class="pixelCard__title">Today’s vibe</div>
+            <ul class="pixelList">
+              <li>✅ Friendly community</li>
+              <li>✅ Events & challenges</li>
+              <li>✅ Survival + QoL</li>
+              <li>✅ Active Discord</li>
+            </ul>
+            <div class="pixelCard__footer">See you in-game.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="join" class="section">
+      <div class="container">
+        <h2>How to Join</h2>
+        <ol class="steps">
+          <li>Open <b>Minecraft Java Edition</b></li>
+          <li>Select <b>Multiplayer</b> → <b>Add Server</b></li>
+          <li>Server Address: <b><span id="serverAddress2">play.yourserver.com</span></b></li>
+          <li>Join and say hi 👋</li>
+        </ol>
+        <p class="small">Make sure you’re on <b>1.21.8</b>.</p>
+      </div>
+    </section>
+
+    <section id="features" class="section section--alt">
+      <div class="container">
+        <h2>Server Features</h2>
+        <div class="grid3">
+          <div class="tile">
+            <h3>Survival+</h3>
+            <p>Vanilla feel with quality-of-life improvements and fair rules.</p>
+          </div>
+          <div class="tile">
+            <h3>Community</h3>
+            <p>Friendly players, staff support, and a chill atmosphere.</p>
+          </div>
+          <div class="tile">
+            <h3>Events</h3>
+            <p>Weekly events, builds, challenges, and seasonal surprises.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules" class="section">
+      <div class="container">
+        <h2>Rules</h2>
+        <ul class="rules">
+          <li>No griefing / stealing</li>
+          <li>No hacks / unfair clients</li>
+          <li>Be respectful (chat + builds)</li>
+          <li>No spam / advertising</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="discord" class="section section--alt">
+      <div class="container">
+        <h2>Discord</h2>
+        <p>Put your Discord invite link on the button below.</p>
+
+        <div class="ctaRow">
+          <a class="btn btn--primary" id="discordLink" href="#" target="_blank" rel="noreferrer">Join Discord</a>
+        </div>
+
+        <div class="small" style="margin-top:10px;">
+          Optional: you can embed a Discord widget here later (requires server widget enabled).
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>© <span id="year"></span> Wanillix</div>
+      <div class="footer__right">Minecraft Java 1.21.8</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
