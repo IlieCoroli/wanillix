@@ -1,10 +1,9 @@
 // ====== Wanillix config (EDIT THESE) ======
 const CONFIG = {
-  serverAddress: "play.yourserver.com",      // <-- change this to your real IP/domain
-  discordInvite: "https://discord.gg/yourinvite", // <-- change this
-  // Live status uses mcsrvstat.us JSON API:
-  // https://api.mcsrvstat.us/2/<serverAddress>
+  serverAddress: "65.21.9.222:25842",
+  discordInvite: "https://discord.gg/dtgyTaDq",
 };
+
 // mcsrvstat.us describes its JSON status API here. :contentReference[oaicite:1]{index=1}
 // =========================================
 
