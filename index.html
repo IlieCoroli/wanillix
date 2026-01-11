@@ -1,31 +1,43 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Wanillix — Minecraft Server (1.21.8)</title>
-  <meta name="description" content="Wanillix Minecraft Server — Java 1.21.8. Join, rules, Discord, and live status." />
+  <meta name="description" content="Wanillix Minecraft Server — Java 1.21.8. How to join, download, Discord, donate, and live status." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
+  <div class="bgBlocks" aria-hidden="true"></div>
+
   <header class="topbar">
     <div class="container topbar__inner">
       <div class="brand">
-        <div class="brand__logo">W</div>
+        <div class="brand__logo" aria-hidden="true"></div>
         <div class="brand__text">
           <div class="brand__name">Wanillix</div>
-          <div class="brand__tag">Minecraft Server • Java 1.21.8</div>
+          <div class="brand__tag" data-i18n="tagline">Minecraft Server • Java 1.21.8</div>
         </div>
       </div>
-      <nav class="nav">
-        <a href="#join">Join</a>
-        <a href="#features">Features</a>
-        <a href="#rules">Rules</a>
-        <a href="#discord">Discord</a>
-      </nav>
+
+      <div class="rightHeader">
+        <nav class="nav">
+          <a href="#join" data-i18n="navJoin">Join</a>
+          <a href="#download" data-i18n="navDownload">Download</a>
+          <a href="#donate" data-i18n="navDonate">Donate</a>
+          <a href="#rules" data-i18n="navRules">Rules</a>
+          <a href="#discord" data-i18n="navDiscord">Discord</a>
+        </nav>
+
+        <div class="lang">
+          <button class="chip" id="langRU" type="button">RU</button>
+          <button class="chip" id="langUA" type="button">UA</button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -33,47 +45,57 @@
     <section class="hero">
       <div class="container hero__inner">
         <div class="hero__left">
+          <div class="badge">
+            <span class="badge__dot"></span>
+            <span data-i18n="badgeText">Survival • Community • Events</span>
+          </div>
+
           <h1>Wanillix</h1>
-          <p class="lead">A cozy survival world with big adventures. Build, trade, and play with a friendly community.</p>
+          <p class="lead" data-i18n="lead">
+            Cozy survival with a real Minecraft vibe. Build, trade, and play with a friendly community.
+          </p>
 
           <div class="cards">
-            <div class="card">
-              <div class="card__label">Server Address</div>
-              <div class="card__value" id="serverAddress">play.yourserver.com</div>
-              <button class="btn" id="copyBtn">Copy IP</button>
+            <div class="card card--block">
+              <div class="card__label" data-i18n="serverAddressLabel">Server Address</div>
+              <div class="card__value mono" id="serverAddress">65.21.9.222:25842</div>
+              <button class="btn btn--pixel" id="copyBtn" type="button" data-i18n="copyIpBtn">Copy IP</button>
               <div class="hint" id="copyHint" aria-live="polite"></div>
             </div>
 
-            <div class="card">
-              <div class="card__label">Live Status</div>
+            <div class="card card--block">
+              <div class="card__label" data-i18n="liveStatusLabel">Live Status</div>
               <div class="status">
                 <span class="dot" id="statusDot"></span>
-                <span id="statusText">Checking…</span>
+                <span id="statusText" data-i18n="checking">Checking…</span>
               </div>
               <div class="hint" id="playersText">—</div>
             </div>
           </div>
 
           <div class="ctaRow">
-            <a class="btn btn--primary" href="#join">How to Join</a>
-            <a class="btn btn--ghost" href="#discord">Open Discord</a>
+            <a class="btn btn--primary btn--pixel" href="#join" data-i18n="howToJoinBtn">How to Join</a>
+            <a class="btn btn--ghost btn--pixel" href="#download" data-i18n="downloadBtn">Download</a>
+            <a class="btn btn--ghost btn--pixel" href="#donate" data-i18n="donateBtn">Donate</a>
           </div>
 
           <div class="micro">
-            Version: <b>Java 1.21.8</b> • Website: <b>Wanillix</b>
+            <span data-i18n="versionText">Version:</span> <b>Java 1.21.8</b>
+            <span class="sep">•</span>
+            <span data-i18n="ipText">IP:</span> <b class="mono">65.21.9.222:25842</b>
           </div>
         </div>
 
         <div class="hero__right">
-          <div class="pixelCard">
-            <div class="pixelCard__title">Today’s vibe</div>
+          <div class="panel panel--chest">
+            <div class="panel__title" data-i18n="todayTitle">Chest of Goodies</div>
             <ul class="pixelList">
-              <li>✅ Friendly community</li>
-              <li>✅ Events & challenges</li>
-              <li>✅ Survival + QoL</li>
-              <li>✅ Active Discord</li>
+              <li data-i18n="p1">✅ Friendly community</li>
+              <li data-i18n="p2">✅ Events & challenges</li>
+              <li data-i18n="p3">✅ Vanilla feel + QoL</li>
+              <li data-i18n="p4">✅ Active Discord</li>
             </ul>
-            <div class="pixelCard__footer">See you in-game.</div>
+            <div class="panel__footer" data-i18n="footerNote">See you in-game.</div>
           </div>
         </div>
       </div>
@@ -81,60 +103,158 @@
 
     <section id="join" class="section">
       <div class="container">
-        <h2>How to Join</h2>
-        <ol class="steps">
-          <li>Open <b>Minecraft Java Edition</b></li>
-          <li>Select <b>Multiplayer</b> → <b>Add Server</b></li>
-          <li>Server Address: <b><span id="serverAddress2">play.yourserver.com</span></b></li>
-          <li>Join and say hi 👋</li>
-        </ol>
-        <p class="small">Make sure you’re on <b>1.21.8</b>.</p>
-      </div>
-    </section>
+        <h2 data-i18n="joinTitle">How to Join</h2>
 
-    <section id="features" class="section section--alt">
-      <div class="container">
-        <h2>Server Features</h2>
-        <div class="grid3">
-          <div class="tile">
-            <h3>Survival+</h3>
-            <p>Vanilla feel with quality-of-life improvements and fair rules.</p>
+        <div class="grid2">
+          <div class="tile tile--grass">
+            <h3 data-i18n="joinStepsTitle">Steps</h3>
+            <ol class="steps">
+              <li data-i18n="step1">Open <b>Minecraft Java Edition</b></li>
+              <li data-i18n="step2">Go to <b>Multiplayer</b> → <b>Add Server</b></li>
+              <li>
+                <span data-i18n="step3a">Server Address:</span>
+                <b class="mono" id="serverAddress2">65.21.9.222:25842</b>
+              </li>
+              <li data-i18n="step4">Join and say hi 👋</li>
+            </ol>
+            <p class="small" data-i18n="versionReminder">Make sure you’re on <b>1.21.8</b>.</p>
           </div>
-          <div class="tile">
-            <h3>Community</h3>
-            <p>Friendly players, staff support, and a chill atmosphere.</p>
-          </div>
-          <div class="tile">
-            <h3>Events</h3>
-            <p>Weekly events, builds, challenges, and seasonal surprises.</p>
+
+          <div class="tile tile--stone">
+            <h3 data-i18n="quickTipsTitle">Quick Tips</h3>
+            <ul class="rules">
+              <li data-i18n="tip1">If you can’t join, check your Minecraft version.</li>
+              <li data-i18n="tip2">If it still doesn’t work — ask in Discord (we help fast).</li>
+              <li data-i18n="tip3">Use the Copy IP button above to avoid mistakes.</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="rules" class="section">
+    <section id="download" class="section section--alt">
       <div class="container">
-        <h2>Rules</h2>
+        <h2 data-i18n="downloadTitle">Download Minecraft</h2>
+        <p class="small" data-i18n="downloadText">
+          Choose how you want to install Minecraft. Official is recommended.
+        </p>
+
+        <div class="grid3">
+          <div class="tile tile--diamond">
+            <h3 data-i18n="officialTitle">Official Launcher (Recommended)</h3>
+            <p class="muted" data-i18n="officialDesc">Safe official download from Minecraft.net.</p>
+            <a class="btn btn--primary btn--pixel" id="officialLink" href="https://www.minecraft.net/en-us/download" target="_blank" rel="noreferrer" data-i18n="officialBtn">
+              Open official download
+            </a>
+          </div>
+
+          <div class="tile tile--gold">
+            <h3 data-i18n="legacyTitle">Legacy Launcher</h3>
+            <p class="muted" data-i18n="legacyDesc">
+              Alternative launcher (not official). Use at your own risk.
+            </p>
+            <a class="btn btn--pixel" id="legacyLink" href="https://legacy-launcher.org/" target="_blank" rel="noreferrer" data-i18n="legacyBtn">
+              Open Legacy Launcher
+            </a>
+          </div>
+
+          <div class="tile tile--iron">
+            <h3 data-i18n="serverInfoTitle">Server Info</h3>
+            <p class="muted" data-i18n="serverInfoDesc">Server version: Java 1.21.8</p>
+            <div class="monoBox">
+              <div class="monoLabel" data-i18n="ipLabel">IP:</div>
+              <div class="mono monoValue">65.21.9.222:25842</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="noteBox">
+          <div class="noteBox__title" data-i18n="noteTitle">Note</div>
+          <div class="noteBox__text" data-i18n="noteText">
+            If Windows shows a warning for any third-party launcher, only install software you trust.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="donate" class="section">
+      <div class="container">
+        <h2 data-i18n="donateTitle">Donations</h2>
+        <p class="small" data-i18n="donateText">
+          This is a prototype page. You can later connect PayPal/Boosty/Stripe or a store.
+        </p>
+
+        <div class="grid3">
+          <div class="tile tier tier--bronze">
+            <div class="tier__top">
+              <div class="tier__name" data-i18n="tier1Name">Supporter</div>
+              <div class="tier__price">£2</div>
+            </div>
+            <ul class="tier__list">
+              <li data-i18n="tier1a">❤ Thanks in Discord</li>
+              <li data-i18n="tier1b">⭐ Donator role</li>
+              <li data-i18n="tier1c">📢 Your name on website</li>
+            </ul>
+            <button class="btn btn--pixel" type="button" data-tier="Supporter" data-price="£2" data-i18n="chooseBtn">Choose</button>
+          </div>
+
+          <div class="tile tier tier--silver">
+            <div class="tier__top">
+              <div class="tier__name" data-i18n="tier2Name">VIP</div>
+              <div class="tier__price">£5</div>
+            </div>
+            <ul class="tier__list">
+              <li data-i18n="tier2a">⭐ VIP role</li>
+              <li data-i18n="tier2b">🎁 Small cosmetic perk</li>
+              <li data-i18n="tier2c">🛠 Priority support</li>
+            </ul>
+            <button class="btn btn--primary btn--pixel" type="button" data-tier="VIP" data-price="£5" data-i18n="chooseBtn">Choose</button>
+          </div>
+
+          <div class="tile tier tier--gold">
+            <div class="tier__top">
+              <div class="tier__name" data-i18n="tier3Name">Legend</div>
+              <div class="tier__price">£10</div>
+            </div>
+            <ul class="tier__list">
+              <li data-i18n="tier3a">👑 Legend role</li>
+              <li data-i18n="tier3b">🎉 Special thank you</li>
+              <li data-i18n="tier3c">✨ Cosmetic bundle (prototype)</li>
+            </ul>
+            <button class="btn btn--pixel" type="button" data-tier="Legend" data-price="£10" data-i18n="chooseBtn">Choose</button>
+          </div>
+        </div>
+
+        <div class="donateBox">
+          <div class="donateBox__left">
+            <div class="donateBox__title" data-i18n="donateProtoTitle">Prototype checkout</div>
+            <div class="donateBox__text" data-i18n="donateProtoText">
+              When you click “Choose”, a popup opens. Later you can replace it with real payments.
+            </div>
+          </div>
+          <a class="btn btn--ghost btn--pixel" href="#discord" data-i18n="askDiscordBtn">Ask in Discord</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules" class="section section--alt">
+      <div class="container">
+        <h2 data-i18n="rulesTitle">Rules</h2>
         <ul class="rules">
-          <li>No griefing / stealing</li>
-          <li>No hacks / unfair clients</li>
-          <li>Be respectful (chat + builds)</li>
-          <li>No spam / advertising</li>
+          <li data-i18n="r1">No griefing / stealing</li>
+          <li data-i18n="r2">No hacks / unfair clients</li>
+          <li data-i18n="r3">Be respectful (chat + builds)</li>
+          <li data-i18n="r4">No spam / advertising</li>
         </ul>
       </div>
     </section>
 
-    <section id="discord" class="section section--alt">
+    <section id="discord" class="section">
       <div class="container">
-        <h2>Discord</h2>
-        <p>Put your Discord invite link on the button below.</p>
-
+        <h2 data-i18n="discordTitle">Discord</h2>
+        <p data-i18n="discordText">Join the Discord to get help, news, events, and support.</p>
         <div class="ctaRow">
-          <a class="btn btn--primary" id="discordLink" href="#" target="_blank" rel="noreferrer">Join Discord</a>
-        </div>
-
-        <div class="small" style="margin-top:10px;">
-          Optional: you can embed a Discord widget here later (requires server widget enabled).
+          <a class="btn btn--primary btn--pixel" id="discordLink" href="https://discord.gg/dtgyTaDq" target="_blank" rel="noreferrer" data-i18n="discordBtn">Join Discord</a>
         </div>
       </div>
     </section>
@@ -143,10 +263,50 @@
   <footer class="footer">
     <div class="container footer__inner">
       <div>© <span id="year"></span> Wanillix</div>
-      <div class="footer__right">Minecraft Java 1.21.8</div>
+      <div class="footer__right">Java 1.21.8 • <span class="mono">65.21.9.222:25842</span></div>
     </div>
   </footer>
+
+  <!-- Donation Modal -->
+  <div class="modal" id="donateModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close="1"></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal__top">
+        <div class="modal__title" id="modalTitle" data-i18n="modalTitle">Donation (Prototype)</div>
+        <button class="xbtn" type="button" data-close="1" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal__body">
+        <div class="modalRow">
+          <div class="modalLabel" data-i18n="modalTier">Tier</div>
+          <div class="modalValue mono" id="modalTierValue">—</div>
+        </div>
+        <div class="modalRow">
+          <div class="modalLabel" data-i18n="modalPrice">Price</div>
+          <div class="modalValue mono" id="modalPriceValue">—</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <p class="muted" data-i18n="modalText">
+          This is a placeholder checkout. Replace this with real payment buttons later.
+        </p>
+
+        <div class="modalActions">
+          <a class="btn btn--primary btn--pixel" id="modalDiscordBtn" href="https://discord.gg/dtgyTaDq" target="_blank" rel="noreferrer" data-i18n="modalDiscordBtn">
+            Open Discord to donate
+          </a>
+          <button class="btn btn--ghost btn--pixel" type="button" data-close="1" data-i18n="closeBtn">Close</button>
+        </div>
+
+        <div class="fineprint" data-i18n="fineprint">
+          Tip: Add PayPal/Stripe/Boosty later and replace this modal button with real links.
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
 </html>
+
