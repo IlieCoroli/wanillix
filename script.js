@@ -7,9 +7,11 @@ const CONFIG = {
 };
 
 // Donation conversion rules:
+// 1 ₽ = 1 ар
+// 10 💎 = 1 ар
 const DONATE_RULES = {
-  rubToAr: 1,          // 1 ₽ = 1 ар
-  diamondsPerAr: 10,   // 10 💎 = 1 ар
+  rubToAr: 1,
+  diamondsPerAr: 10,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -71,52 +73,33 @@ const I18N = {
     noteText: "Если Windows показывает предупреждение для сторонних лаунчеров — устанавливай только то, чему доверяешь.",
 
     donateTitle: "Донат",
-    donateText: "Это прототип страницы. Позже можно подключить PayPal/Boosty/Stripe или магазин.",
+    donateTextNick: "Введи ник в Minecraft, выбери пакет, скопируй заявку и отправь в Discord.",
     rate1: "1 ₽ = 1 ар (алмазная руда)",
     rate2: "10 💎 (алмаз) = 1 ар",
     youGet: "Ты получаешь:",
     diamonds: "Алмазы:",
-
-    tier1Name: "Supporter",
-    tier1a: "❤ Спасибо в Discord",
-    tier1b: "⭐ Роль донатера",
-    tier1c: "📢 Ник на сайте",
-    tier2Name: "VIP",
-    tier2a: "⭐ VIP роль",
-    tier2b: "🎁 Косметический бонус",
-    tier2c: "🛠 Приоритетная помощь",
-    tier3Name: "Legend",
-    tier3a: "👑 Legend роль",
-    tier3b: "🎉 Особая благодарность",
-    tier3c: "✨ Косметический набор (прототип)",
-
+    nickLabel: "Ник в Minecraft",
+    openDiscord: "Открыть Discord",
     chooseBtn: "Выбрать",
-    donateProtoTitle: "Прототип оплаты",
-    donateProtoText: "Нажми “Выбрать” — откроется окно. Потом заменим на реальные платежи.",
-    askDiscordBtn: "Спросить в Discord",
+    howItWorksTitle: "Как это работает",
+    howItWorksText: "Выбираешь пакет → копируешь сообщение → отправляешь в Discord. Стафф выдаёт донат на этот ник.",
 
-    rulesTitle: "Правила",
-    r1: "Запрещён гриферинг / кражи",
-    r2: "Запрещены читы / unfair клиенты",
-    r3: "Уважай других (чат + постройки)",
-    r4: "Запрещён спам / реклама",
-
-    discordTitle: "Discord",
-    discordText: "Заходи в Discord: помощь, новости, ивенты и поддержка.",
-    discordBtn: "Зайти в Discord",
-
-    modalTitle: "Донат (Прототип)",
+    modalTitleNick: "Заявка на донат",
+    modalNick: "Ник",
     modalTier: "Пакет",
     modalPrice: "Цена",
     modalAr: "АР",
     modalDiamonds: "💎",
-    modalText: "Это заглушка. Потом заменим на реальные кнопки оплаты.",
-    modalDiscordBtn: "Открыть Discord для доната",
+    copyMsgTitle: "Сообщение для Discord",
+    copyMsgBtn: "Скопировать сообщение",
     closeBtn: "Закрыть",
-    fineprint: "Подсказка: позже добавь PayPal/Stripe/Boosty и замени кнопку на реальные ссылки.",
 
+    nickEmpty: "Введи ник (3–16 символов).",
+    nickBad: "Ник должен быть 3–16 символов: A-Z 0-9 _",
+    nickOk: "Ок ✅ можно выбирать пакет",
     copied: "Скопировано!",
     copyFail: "Не получилось скопировать. Скопируй вручную.",
+
     online: "Онлайн",
     offline: "Оффлайн",
     unavailable: "Недоступно"
@@ -178,59 +161,48 @@ const I18N = {
     noteText: "Якщо Windows показує попередження для сторонніх лаунчерів — встановлюй лише те, чому довіряєш.",
 
     donateTitle: "Донат",
-    donateText: "Це прототип сторінки. Пізніше можна підключити PayPal/Boosty/Stripe або магазин.",
+    donateTextNick: "Введи нік в Minecraft, обери пакет, скопіюй заявку та надішли в Discord.",
     rate1: "1 ₽ = 1 ар (алмазна руда)",
     rate2: "10 💎 (алмаз) = 1 ар",
     youGet: "Ти отримуєш:",
     diamonds: "Алмази:",
-
-    tier1Name: "Supporter",
-    tier1a: "❤ Подяка в Discord",
-    tier1b: "⭐ Роль донатера",
-    tier1c: "📢 Нік на сайті",
-    tier2Name: "VIP",
-    tier2a: "⭐ VIP роль",
-    tier2b: "🎁 Косметичний бонус",
-    tier2c: "🛠 Пріоритетна допомога",
-    tier3Name: "Legend",
-    tier3a: "👑 Legend роль",
-    tier3b: "🎉 Особлива подяка",
-    tier3c: "✨ Косметичний набір (прототип)",
-
+    nickLabel: "Нік в Minecraft",
+    openDiscord: "Відкрити Discord",
     chooseBtn: "Обрати",
-    donateProtoTitle: "Прототип оплати",
-    donateProtoText: "Натисни “Обрати” — відкриється вікно. Потім замінимо на реальні платежі.",
-    askDiscordBtn: "Запитати в Discord",
+    howItWorksTitle: "Як це працює",
+    howItWorksText: "Обираєш пакет → копіюєш повідомлення → надсилаєш в Discord. Стафф видає донат на цей нік.",
 
-    rulesTitle: "Правила",
-    r1: "Заборонено гриферити / красти",
-    r2: "Заборонено чіти / unfair клієнти",
-    r3: "Поважай інших (чат + будівлі)",
-    r4: "Заборонено спам / рекламу",
-
-    discordTitle: "Discord",
-    discordText: "Заходь у Discord: допомога, новини, івенти та підтримка.",
-    discordBtn: "Зайти в Discord",
-
-    modalTitle: "Донат (Прототип)",
+    modalTitleNick: "Заявка на донат",
+    modalNick: "Нік",
     modalTier: "Пакет",
     modalPrice: "Ціна",
     modalAr: "АР",
     modalDiamonds: "💎",
-    modalText: "Це заглушка. Потім замінимо на реальні кнопки оплати.",
-    modalDiscordBtn: "Відкрити Discord для донату",
+    copyMsgTitle: "Повідомлення для Discord",
+    copyMsgBtn: "Скопіювати повідомлення",
     closeBtn: "Закрити",
-    fineprint: "Порада: додай PayPal/Stripe/Boosty пізніше та заміни кнопку на реальні посилання.",
 
+    nickEmpty: "Введи нік (3–16 символів).",
+    nickBad: "Нік має бути 3–16 символів: A-Z 0-9 _",
+    nickOk: "Ок ✅ можна обирати пакет",
     copied: "Скопійовано!",
     copyFail: "Не вдалося скопіювати. Скопіюй вручну.",
+
     online: "Онлайн",
-    offline: "Офлайн",
+    offline: "Оффлайн",
     unavailable: "Недоступно"
   }
 };
 
 let currentLang = "ru";
+let currentNick = "";
+
+function rubToAr(rub) {
+  return Math.floor(Number(rub) * DONATE_RULES.rubToAr);
+}
+function arToDiamonds(ar) {
+  return Math.floor(Number(ar) * DONATE_RULES.diamondsPerAr);
+}
 
 function setActiveLangButtons() {
   const ru = $("langRU");
@@ -250,6 +222,7 @@ function applyI18n() {
   });
 
   setActiveLangButtons();
+  validateNick(); // refresh hints in current language
 }
 
 function pickDefaultLang() {
@@ -262,48 +235,15 @@ function pickDefaultLang() {
 }
 
 function setLinksAndIP() {
-  const a1 = $("serverAddress");
-  const a2 = $("serverAddress2");
-  if (a1) a1.textContent = CONFIG.serverAddress;
-  if (a2) a2.textContent = CONFIG.serverAddress;
+  if ($("serverAddress")) $("serverAddress").textContent = CONFIG.serverAddress;
+  if ($("serverAddress2")) $("serverAddress2").textContent = CONFIG.serverAddress;
 
-  const discordLink = $("discordLink");
-  if (discordLink) discordLink.href = CONFIG.discordInvite;
+  if ($("discordLink")) $("discordLink").href = CONFIG.discordInvite;
+  if ($("discordDonateBtn")) $("discordDonateBtn").href = CONFIG.discordInvite;
+  if ($("openDiscordBtn")) $("openDiscordBtn").href = CONFIG.discordInvite;
 
-  const modalDiscordBtn = $("modalDiscordBtn");
-  if (modalDiscordBtn) modalDiscordBtn.href = CONFIG.discordInvite;
-
-  const officialLink = $("officialLink");
-  if (officialLink) officialLink.href = CONFIG.officialDownload;
-
-  const legacyLink = $("legacyLink");
-  if (legacyLink) legacyLink.href = CONFIG.legacyDownload;
-}
-
-function rubToAr(rub) {
-  return Math.floor(Number(rub) * DONATE_RULES.rubToAr);
-}
-function arToDiamonds(ar) {
-  return Math.floor(Number(ar) * DONATE_RULES.diamondsPerAr);
-}
-
-function refreshDonateCards() {
-  document.querySelectorAll("button[data-rub][data-tier]").forEach((btn) => {
-    const rub = Number(btn.dataset.rub || 0);
-    const ar = rubToAr(rub);
-    const diamonds = arToDiamonds(ar);
-
-    const card = btn.closest(".tier");
-    if (!card) return;
-
-    const priceLabel = card.querySelector("[data-price-label]");
-    const arsEl = card.querySelector("[data-ars]");
-    const coinsEl = card.querySelector("[data-coins]");
-
-    if (priceLabel) priceLabel.textContent = String(rub);
-    if (arsEl) arsEl.textContent = String(ar);
-    if (coinsEl) coinsEl.textContent = String(diamonds);
-  });
+  if ($("officialLink")) $("officialLink").href = CONFIG.officialDownload;
+  if ($("legacyLink")) $("legacyLink").href = CONFIG.legacyDownload;
 }
 
 async function copyIP() {
@@ -319,13 +259,10 @@ async function copyIP() {
 }
 
 function setStatus(online, text, playersText) {
-  const statusText = $("statusText");
-  const players = $("playersText");
+  if ($("statusText")) $("statusText").textContent = text;
+  if ($("playersText")) $("playersText").textContent = playersText || "—";
+
   const dot = $("statusDot");
-
-  if (statusText) statusText.textContent = text;
-  if (players) players.textContent = playersText || "—";
-
   if (dot) {
     dot.style.background = online ? "var(--ok)" : "var(--bad)";
     dot.style.boxShadow = online
@@ -357,24 +294,96 @@ async function fetchStatus() {
   }
 }
 
-/* Donate modal (safe) */
+function refreshDonateCards() {
+  document.querySelectorAll("button[data-rub][data-tier]").forEach((btn) => {
+    const rub = Number(btn.dataset.rub || 0);
+    const ar = rubToAr(rub);
+    const diamonds = arToDiamonds(ar);
+
+    const card = btn.closest(".tier");
+    if (!card) return;
+
+    const priceLabel = card.querySelector("[data-price-label]");
+    const arsEl = card.querySelector("[data-ars]");
+    const coinsEl = card.querySelector("[data-coins]");
+
+    if (priceLabel) priceLabel.textContent = String(rub);
+    if (arsEl) arsEl.textContent = String(ar);
+    if (coinsEl) coinsEl.textContent = String(diamonds);
+  });
+}
+
+function isValidNick(nick) {
+  // Minecraft nickname rules (simple): 3-16 chars, letters/numbers/underscore
+  return /^[A-Za-z0-9_]{3,16}$/.test(nick);
+}
+
+function setDonateButtonsEnabled(enabled) {
+  document.querySelectorAll("button[data-rub][data-tier]").forEach((btn) => {
+    btn.disabled = !enabled;
+  });
+}
+
+function validateNick() {
+  const dict = I18N[currentLang];
+  const input = $("nickInput");
+  const hint = $("nickHint");
+  if (!input || !hint) return false;
+
+  const nick = (input.value || "").trim();
+  currentNick = nick;
+
+  hint.classList.remove("ok", "bad");
+
+  if (!nick) {
+    hint.textContent = dict.nickEmpty;
+    hint.classList.add("bad");
+    setDonateButtonsEnabled(false);
+    return false;
+  }
+
+  if (!isValidNick(nick)) {
+    hint.textContent = dict.nickBad;
+    hint.classList.add("bad");
+    setDonateButtonsEnabled(false);
+    return false;
+  }
+
+  hint.textContent = dict.nickOk;
+  hint.classList.add("ok");
+  setDonateButtonsEnabled(true);
+  return true;
+}
+
+/* Modal */
 function openModal(tier, rub) {
   const modal = $("donateModal");
   if (!modal) return;
 
+  if (!validateNick()) return;
+
+  const nick = currentNick;
   const rubNum = Number(rub || 0);
   const ar = rubToAr(rubNum);
   const diamonds = arToDiamonds(ar);
 
-  const tierEl = $("modalTierValue");
-  const priceEl = $("modalPriceValue");
-  const arEl = $("modalArValue");
-  const coinsEl = $("modalCoinsValue");
+  if ($("modalNickValue")) $("modalNickValue").textContent = nick;
+  if ($("modalTierValue")) $("modalTierValue").textContent = tier || "—";
+  if ($("modalPriceValue")) $("modalPriceValue").textContent = `₽${rubNum}`;
+  if ($("modalArValue")) $("modalArValue").textContent = `${ar} ар`;
+  if ($("modalCoinsValue")) $("modalCoinsValue").textContent = `${diamonds} 💎`;
 
-  if (tierEl) tierEl.textContent = tier || "—";
-  if (priceEl) priceEl.textContent = `₽${rubNum}`;
-  if (arEl) arEl.textContent = `${ar} ар`;
-  if (coinsEl) coinsEl.textContent = `${diamonds} 💎`;
+  const msg =
+`WANILLIX DONATE
+Nick: ${nick}
+Pack: ${tier}
+Price: ₽${rubNum}
+You get: ${ar} ар / ${diamonds} 💎
+Server: ${CONFIG.serverAddress}
+Discord: ${CONFIG.discordInvite}`;
+
+  const msgBox = $("modalMsg");
+  if (msgBox) msgBox.textContent = msg;
 
   modal.classList.add("isOpen");
   modal.setAttribute("aria-hidden", "false");
@@ -387,26 +396,40 @@ function closeModal() {
   modal.setAttribute("aria-hidden", "true");
 }
 
+async function copyDonateMessage() {
+  const dict = I18N[currentLang];
+  const msgBox = $("modalMsg");
+  const hint = $("copyMsgHint");
+  if (!msgBox) return;
+
+  try {
+    await navigator.clipboard.writeText(msgBox.textContent || "");
+    if (hint) hint.textContent = dict.copied;
+  } catch {
+    if (hint) hint.textContent = dict.copyFail;
+  }
+  setTimeout(() => { if (hint) hint.textContent = ""; }, 1600);
+}
+
 function bindDonateButtons() {
   const modal = $("donateModal");
   if (!modal) return;
 
   document.querySelectorAll('button[data-tier][data-rub]').forEach((btn) => {
-    btn.addEventListener("click", () => {
-      openModal(btn.dataset.tier, btn.dataset.rub);
-    });
+    btn.addEventListener("click", () => openModal(btn.dataset.tier, btn.dataset.rub));
   });
 
   modal.addEventListener("click", (e) => {
     const target = e.target;
-    if (target && target.getAttribute && target.getAttribute("data-close") === "1") {
-      closeModal();
-    }
+    if (target && target.getAttribute && target.getAttribute("data-close") === "1") closeModal();
   });
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeModal();
   });
+
+  const copyBtn = $("copyMsgBtn");
+  if (copyBtn) copyBtn.addEventListener("click", copyDonateMessage);
 }
 
 function init() {
@@ -415,28 +438,38 @@ function init() {
   setLinksAndIP();
   refreshDonateCards();
 
+  const input = $("nickInput");
+  if (input) {
+    // Restore last nick
+    const savedNick = localStorage.getItem("wanillix_nick");
+    if (savedNick) input.value = savedNick;
+
+    input.addEventListener("input", () => {
+      validateNick();
+      localStorage.setItem("wanillix_nick", (input.value || "").trim());
+    });
+  }
+
+  // Disable donate buttons until nick valid
+  setDonateButtonsEnabled(false);
+  validateNick();
+
   const ruBtn = $("langRU");
   const uaBtn = $("langUA");
-
-  if (ruBtn) {
-    ruBtn.addEventListener("click", () => {
-      currentLang = "ru";
-      localStorage.setItem("wanillix_lang", "ru");
-      applyI18n();
-      refreshDonateCards();
-      fetchStatus();
-    });
-  }
-
-  if (uaBtn) {
-    uaBtn.addEventListener("click", () => {
-      currentLang = "ua";
-      localStorage.setItem("wanillix_lang", "ua");
-      applyI18n();
-      refreshDonateCards();
-      fetchStatus();
-    });
-  }
+  if (ruBtn) ruBtn.addEventListener("click", () => {
+    currentLang = "ru";
+    localStorage.setItem("wanillix_lang", "ru");
+    applyI18n();
+    refreshDonateCards();
+    fetchStatus();
+  });
+  if (uaBtn) uaBtn.addEventListener("click", () => {
+    currentLang = "ua";
+    localStorage.setItem("wanillix_lang", "ua");
+    applyI18n();
+    refreshDonateCards();
+    fetchStatus();
+  });
 
   const copyBtn = $("copyBtn");
   if (copyBtn) copyBtn.addEventListener("click", copyIP);
@@ -445,6 +478,7 @@ function init() {
   if (year) year.textContent = new Date().getFullYear();
 
   bindDonateButtons();
+
   fetchStatus();
   setInterval(fetchStatus, 30000);
 }
