@@ -102,6 +102,7 @@ const I18N = {
     modalDiscordBtn: "Открыть Discord для доната",
     closeBtn: "Закрыть",
     fineprint: "Подсказка: позже добавь PayPal/Stripe/Boosty и замени кнопку на реальные ссылки.",
+
     copied: "Скопировано!",
     copyFail: "Не получилось скопировать. Скопируй вручную.",
     online: "Онлайн",
@@ -200,6 +201,7 @@ const I18N = {
     modalDiscordBtn: "Відкрити Discord для донату",
     closeBtn: "Закрити",
     fineprint: "Порада: додай PayPal/Stripe/Boosty пізніше та заміни кнопку на реальні посилання.",
+
     copied: "Скопійовано!",
     copyFail: "Не вдалося скопіювати. Скопіюй вручну.",
     online: "Онлайн",
@@ -210,9 +212,24 @@ const I18N = {
 
 let currentLang = "ru";
 
+function safeSetText(id, text) {
+  const el = $(id);
+  if (el) el.textContent = text;
+}
+function safeSetHTML(selector, html) {
+  const el = document.querySelector(selector);
+  if (el) el.innerHTML = html;
+}
+function safeSetHref(id, url) {
+  const el = $(id);
+  if (el) el.href = url;
+}
+
 function setActiveLangButtons() {
-  $("langRU").classList.toggle("isActive", currentLang === "ru");
-  $("langUA").classList.toggle("isActive", currentLang === "ua");
+  const ru = $("langRU");
+  const ua = $("langUA");
+  if (ru) ru.classList.toggle("isActive", currentLang === "ru");
+  if (ua) ua.classList.toggle("isActive", currentLang === "ua");
 }
 
 function applyI18n() {
@@ -238,42 +255,48 @@ function pickDefaultLang() {
 }
 
 function setLinksAndIP() {
-  // IP visible
-  $("serverAddress").textContent = CONFIG.serverAddress;
-  $("serverAddress2").textContent = CONFIG.serverAddress;
+  safeSetText("serverAddress", CONFIG.serverAddress);
+  safeSetText("serverAddress2", CONFIG.serverAddress);
 
-  // Links
-  $("discordLink").href = CONFIG.discordInvite;
-  $("modalDiscordBtn").href = CONFIG.discordInvite;
+  safeSetHref("discordLink", CONFIG.discordInvite);
+  safeSetHref("modalDiscordBtn", CONFIG.discordInvite);
 
-  $("officialLink").href = CONFIG.officialDownload;
-  $("legacyLink").href = CONFIG.legacyDownload;
+  safeSetHref("officialLink", CONFIG.officialDownload);
+  safeSetHref("legacyLink", CONFIG.legacyDownload);
 }
 
 async function copyIP() {
   const dict = I18N[currentLang];
+  const hint = $("copyHint");
   try {
     await navigator.clipboard.writeText(CONFIG.serverAddress);
-    $("copyHint").textContent = dict.copied;
+    if (hint) hint.textContent = dict.copied;
   } catch {
-    $("copyHint").textContent = dict.copyFail;
+    if (hint) hint.textContent = dict.copyFail;
   }
-  setTimeout(() => ($("copyHint").textContent = ""), 1600);
+  setTimeout(() => { if (hint) hint.textContent = ""; }, 1600);
 }
 
 function setStatus(online, text, playersText) {
-  $("statusText").textContent = text;
-  $("playersText").textContent = playersText || "—";
+  const statusText = $("statusText");
+  const players = $("playersText");
   const dot = $("statusDot");
-  dot.style.background = online ? "var(--ok)" : "var(--bad)";
-  dot.style.boxShadow = online
-    ? "0 0 0 4px rgba(52,211,153,.12)"
-    : "0 0 0 4px rgba(251,113,133,.12)";
+
+  if (statusText) statusText.textContent = text;
+  if (players) players.textContent = playersText || "—";
+
+  if (dot) {
+    dot.style.background = online ? "var(--ok)" : "var(--bad)";
+    dot.style.boxShadow = online
+      ? "0 0 0 4px rgba(52,211,153,.12)"
+      : "0 0 0 4px rgba(251,113,133,.12)";
+  }
 }
 
 async function fetchStatus() {
   const dict = I18N[currentLang];
   const url = `https://api.mcsrvstat.us/2/${encodeURIComponent(CONFIG.serverAddress)}`;
+
   try {
     const res = await fetch(url, { cache: "no-store" });
     const data = await res.json();
@@ -293,27 +316,38 @@ async function fetchStatus() {
   }
 }
 
-/* Donate modal */
+/* Donate modal (safe) */
 function openModal(tier, price) {
-  $("modalTierValue").textContent = tier || "—";
-  $("modalPriceValue").textContent = price || "—";
-  $("donateModal").classList.add("isOpen");
-  $("donateModal").setAttribute("aria-hidden", "false");
+  const modal = $("donateModal");
+  if (!modal) return;
+
+  safeSetText("modalTierValue", tier || "—");
+  safeSetText("modalPriceValue", price || "—");
+
+  modal.classList.add("isOpen");
+  modal.setAttribute("aria-hidden", "false");
 }
 
 function closeModal() {
-  $("donateModal").classList.remove("isOpen");
-  $("donateModal").setAttribute("aria-hidden", "true");
+  const modal = $("donateModal");
+  if (!modal) return;
+
+  modal.classList.remove("isOpen");
+  modal.setAttribute("aria-hidden", "true");
 }
 
 function bindDonateButtons() {
+  const modal = $("donateModal");
+  // If modal not present, skip donate JS to avoid crashing
+  if (!modal) return;
+
   document.querySelectorAll('button[data-tier][data-price]').forEach((btn) => {
     btn.addEventListener("click", () => {
       openModal(btn.dataset.tier, btn.dataset.price);
     });
   });
 
-  $("donateModal").addEventListener("click", (e) => {
+  modal.addEventListener("click", (e) => {
     const target = e.target;
     if (target && target.getAttribute && target.getAttribute("data-close") === "1") {
       closeModal();
@@ -330,22 +364,32 @@ function init() {
   applyI18n();
   setLinksAndIP();
 
-  $("langRU").addEventListener("click", () => {
-    currentLang = "ru";
-    localStorage.setItem("wanillix_lang", "ru");
-    applyI18n();
-    fetchStatus();
-  });
+  const ruBtn = $("langRU");
+  const uaBtn = $("langUA");
 
-  $("langUA").addEventListener("click", () => {
-    currentLang = "ua";
-    localStorage.setItem("wanillix_lang", "ua");
-    applyI18n();
-    fetchStatus();
-  });
+  if (ruBtn) {
+    ruBtn.addEventListener("click", () => {
+      currentLang = "ru";
+      localStorage.setItem("wanillix_lang", "ru");
+      applyI18n();
+      fetchStatus();
+    });
+  }
 
-  $("copyBtn").addEventListener("click", copyIP);
-  $("year").textContent = new Date().getFullYear();
+  if (uaBtn) {
+    uaBtn.addEventListener("click", () => {
+      currentLang = "ua";
+      localStorage.setItem("wanillix_lang", "ua");
+      applyI18n();
+      fetchStatus();
+    });
+  }
+
+  const copyBtn = $("copyBtn");
+  if (copyBtn) copyBtn.addEventListener("click", copyIP);
+
+  const year = $("year");
+  if (year) year.textContent = new Date().getFullYear();
 
   bindDonateButtons();
   fetchStatus();
@@ -353,4 +397,3 @@ function init() {
 }
 
 init();
-
