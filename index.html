@@ -177,6 +177,7 @@
       </div>
     </section>
 
+    <!-- DONATE -->
     <section id="donate" class="section">
       <div class="container">
         <h2 data-i18n="donateTitle">Donations</h2>
@@ -184,44 +185,100 @@
           This is a prototype page. You can later connect PayPal/Boosty/Stripe or a store.
         </p>
 
+        <div class="donateRates">
+          <div class="rateChip" data-i18n="rate1">1 ₽ = 1 ар (алмазная руда)</div>
+          <div class="rateChip" data-i18n="rate2">10 💎 (алмаз) = 1 ар</div>
+        </div>
+
         <div class="grid3">
           <div class="tile tier tier--bronze">
             <div class="tier__top">
               <div class="tier__name" data-i18n="tier1Name">Supporter</div>
-              <div class="tier__price">£2</div>
+              <div class="tier__price"><span class="mono">₽</span><span class="mono" data-price-label>99</span></div>
             </div>
+
+            <div class="tier__calc">
+              <div class="calcRow">
+                <span class="muted" data-i18n="youGet">You get:</span>
+                <b class="mono"><span data-ars>99</span> ар</b>
+              </div>
+              <div class="calcRow">
+                <span class="muted" data-i18n="diamonds">Diamonds:</span>
+                <b class="mono"><span data-coins>990</span> 💎</b>
+              </div>
+            </div>
+
             <ul class="tier__list">
               <li data-i18n="tier1a">❤ Thanks in Discord</li>
               <li data-i18n="tier1b">⭐ Donator role</li>
               <li data-i18n="tier1c">📢 Your name on website</li>
             </ul>
-            <button class="btn btn--pixel" type="button" data-tier="Supporter" data-price="£2" data-i18n="chooseBtn">Choose</button>
+
+            <button class="btn btn--pixel"
+                    type="button"
+                    data-tier="Supporter"
+                    data-rub="99"
+                    data-i18n="chooseBtn">Choose</button>
           </div>
 
           <div class="tile tier tier--silver">
             <div class="tier__top">
               <div class="tier__name" data-i18n="tier2Name">VIP</div>
-              <div class="tier__price">£5</div>
+              <div class="tier__price"><span class="mono">₽</span><span class="mono" data-price-label>249</span></div>
             </div>
+
+            <div class="tier__calc">
+              <div class="calcRow">
+                <span class="muted" data-i18n="youGet">You get:</span>
+                <b class="mono"><span data-ars>249</span> ар</b>
+              </div>
+              <div class="calcRow">
+                <span class="muted" data-i18n="diamonds">Diamonds:</span>
+                <b class="mono"><span data-coins>2490</span> 💎</b>
+              </div>
+            </div>
+
             <ul class="tier__list">
               <li data-i18n="tier2a">⭐ VIP role</li>
               <li data-i18n="tier2b">🎁 Small cosmetic perk</li>
               <li data-i18n="tier2c">🛠 Priority support</li>
             </ul>
-            <button class="btn btn--primary btn--pixel" type="button" data-tier="VIP" data-price="£5" data-i18n="chooseBtn">Choose</button>
+
+            <button class="btn btn--primary btn--pixel"
+                    type="button"
+                    data-tier="VIP"
+                    data-rub="249"
+                    data-i18n="chooseBtn">Choose</button>
           </div>
 
           <div class="tile tier tier--gold">
             <div class="tier__top">
               <div class="tier__name" data-i18n="tier3Name">Legend</div>
-              <div class="tier__price">£10</div>
+              <div class="tier__price"><span class="mono">₽</span><span class="mono" data-price-label>499</span></div>
             </div>
+
+            <div class="tier__calc">
+              <div class="calcRow">
+                <span class="muted" data-i18n="youGet">You get:</span>
+                <b class="mono"><span data-ars>499</span> ар</b>
+              </div>
+              <div class="calcRow">
+                <span class="muted" data-i18n="diamonds">Diamonds:</span>
+                <b class="mono"><span data-coins>4990</span> 💎</b>
+              </div>
+            </div>
+
             <ul class="tier__list">
               <li data-i18n="tier3a">👑 Legend role</li>
               <li data-i18n="tier3b">🎉 Special thank you</li>
               <li data-i18n="tier3c">✨ Cosmetic bundle (prototype)</li>
             </ul>
-            <button class="btn btn--pixel" type="button" data-tier="Legend" data-price="£10" data-i18n="chooseBtn">Choose</button>
+
+            <button class="btn btn--pixel"
+                    type="button"
+                    data-tier="Legend"
+                    data-rub="499"
+                    data-i18n="chooseBtn">Choose</button>
           </div>
         </div>
 
@@ -281,9 +338,20 @@
           <div class="modalLabel" data-i18n="modalTier">Tier</div>
           <div class="modalValue mono" id="modalTierValue">—</div>
         </div>
+
         <div class="modalRow">
           <div class="modalLabel" data-i18n="modalPrice">Price</div>
           <div class="modalValue mono" id="modalPriceValue">—</div>
+        </div>
+
+        <div class="modalRow">
+          <div class="modalLabel" data-i18n="modalAr">АР</div>
+          <div class="modalValue mono" id="modalArValue">—</div>
+        </div>
+
+        <div class="modalRow">
+          <div class="modalLabel" data-i18n="modalDiamonds">💎</div>
+          <div class="modalValue mono" id="modalCoinsValue">—</div>
         </div>
 
         <div class="divider"></div>
